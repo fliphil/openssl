@@ -40,6 +40,7 @@ SHA1TEST=	sha1test
 SHA256TEST=	sha256t
 SHA512TEST=	sha512t
 MDC2TEST=	mdc2test
+KDFTEST=	kdftest
 RMDTEST=	rmdtest
 MD2TEST=	md2test
 MD4TEST=	md4test
@@ -77,7 +78,7 @@ EXE=	$(BNTEST)$(EXE_EXT) $(ECTEST)$(EXE_EXT)  $(ECDSATEST)$(EXE_EXT) $(ECDHTEST)
 	$(MD2TEST)$(EXE_EXT)  $(MD4TEST)$(EXE_EXT) $(MD5TEST)$(EXE_EXT) $(HMACTEST)$(EXE_EXT) $(WPTEST)$(EXE_EXT) \
 	$(RC2TEST)$(EXE_EXT) $(RC4TEST)$(EXE_EXT) $(RC5TEST)$(EXE_EXT) \
 	$(DESTEST)$(EXE_EXT) $(SHATEST)$(EXE_EXT) $(SHA1TEST)$(EXE_EXT) $(SHA256TEST)$(EXE_EXT) $(SHA512TEST)$(EXE_EXT) \
-	$(MDC2TEST)$(EXE_EXT) $(RMDTEST)$(EXE_EXT) \
+	$(MDC2TEST)$(EXE_EXT) $(RMDTEST)$(EXE_EXT) $(KDFTEST)$(EXE_EXT) \
 	$(RANDTEST)$(EXE_EXT) $(DHTEST)$(EXE_EXT) $(ENGINETEST)$(EXE_EXT) \
 	$(BFTEST)$(EXE_EXT) $(CASTTEST)$(EXE_EXT) $(SSLTEST)$(EXE_EXT) $(EXPTEST)$(EXE_EXT) $(DSATEST)$(EXE_EXT) $(RSATEST)$(EXE_EXT) \
 	$(EVPTEST)$(EXE_EXT) $(EVPEXTRATEST)$(EXE_EXT) $(IGETEST)$(EXE_EXT) $(JPAKETEST)$(EXE_EXT) $(SRPTEST)$(EXE_EXT) \
@@ -92,7 +93,7 @@ OBJ=	$(BNTEST).o $(ECTEST).o  $(ECDSATEST).o $(ECDHTEST).o $(IDEATEST).o \
 	$(HMACTEST).o $(WPTEST).o \
 	$(RC2TEST).o $(RC4TEST).o $(RC5TEST).o \
 	$(DESTEST).o $(SHATEST).o $(SHA1TEST).o $(SHA256TEST).o $(SHA512TEST).o \
-	$(MDC2TEST).o $(RMDTEST).o \
+	$(MDC2TEST).o $(KDFTEST).o $(RMDTEST).o \
 	$(RANDTEST).o $(DHTEST).o $(ENGINETEST).o $(CASTTEST).o \
 	$(BFTEST).o  $(SSLTEST).o  $(DSATEST).o  $(EXPTEST).o $(RSATEST).o \
 	$(EVPTEST).o $(EVPEXTRATEST).o $(IGETEST).o $(JPAKETEST).o $(ASN1TEST).o $(V3NAMETEST).o \
@@ -102,7 +103,7 @@ OBJ=	$(BNTEST).o $(ECTEST).o  $(ECDSATEST).o $(ECDHTEST).o $(IDEATEST).o \
 SRC=	$(BNTEST).c $(ECTEST).c  $(ECDSATEST).c $(ECDHTEST).c $(IDEATEST).c \
 	$(MD2TEST).c  $(MD4TEST).c $(MD5TEST).c \
 	$(HMACTEST).c $(WPTEST).c \
-	$(RC2TEST).c $(RC4TEST).c $(RC5TEST).c \
+	$(RC2TEST).c $(RC4TEST).c $(RC5TEST).c $(KDFTEST).c \
 	$(DESTEST).c $(SHATEST).c $(SHA1TEST).c $(MDC2TEST).c $(RMDTEST).c \
 	$(RANDTEST).c $(DHTEST).c $(ENGINETEST).c $(CASTTEST).c \
 	$(BFTEST).c  $(SSLTEST).c $(DSATEST).c   $(EXPTEST).c $(RSATEST).c \
@@ -174,6 +175,9 @@ test_sha: $(SHATEST)$(EXE_EXT) $(SHA1TEST)$(EXE_EXT) $(SHA256TEST)$(EXE_EXT) $(S
 
 test_mdc2: $(MDC2TEST)$(EXE_EXT)
 	../util/shlib_wrap.sh ./$(MDC2TEST)
+
+test_kdf: $(KDFTEST)$(EXE_EXT)
+	../util/shlib_wrap.sh ./$(KDFTEST)
 
 test_md5: $(MD5TEST)$(EXE_EXT)
 	../util/shlib_wrap.sh ./$(MD5TEST)
@@ -451,6 +455,9 @@ $(RMDTEST)$(EXE_EXT): $(RMDTEST).o $(DLIBCRYPTO)
 $(MDC2TEST)$(EXE_EXT): $(MDC2TEST).o $(DLIBCRYPTO)
 	@target=$(MDC2TEST); $(BUILD_CMD)
 
+$(KDFTEST)$(EXE_EXT): $(KDFTEST).o $(DLIBCRYPTO)
+	@target=$(KDFTEST); $(BUILD_CMD)
+
 $(MD4TEST)$(EXE_EXT): $(MD4TEST).o $(DLIBCRYPTO)
 	@target=$(MD4TEST); $(BUILD_CMD)
 
@@ -588,9 +595,10 @@ clienthellotest.o: ../include/openssl/buffer.h ../include/openssl/comp.h
 clienthellotest.o: ../include/openssl/crypto.h ../include/openssl/dtls1.h
 clienthellotest.o: ../include/openssl/e_os2.h ../include/openssl/ec.h
 clienthellotest.o: ../include/openssl/ecdh.h ../include/openssl/ecdsa.h
-clienthellotest.o: ../include/openssl/evp.h ../include/openssl/hmac.h
-clienthellotest.o: ../include/openssl/kssl.h ../include/openssl/lhash.h
-clienthellotest.o: ../include/openssl/obj_mac.h ../include/openssl/objects.h
+clienthellotest.o: ../include/openssl/err.h ../include/openssl/evp.h
+clienthellotest.o: ../include/openssl/hmac.h ../include/openssl/kssl.h
+clienthellotest.o: ../include/openssl/lhash.h ../include/openssl/obj_mac.h
+clienthellotest.o: ../include/openssl/objects.h
 clienthellotest.o: ../include/openssl/opensslconf.h
 clienthellotest.o: ../include/openssl/opensslv.h ../include/openssl/ossl_typ.h
 clienthellotest.o: ../include/openssl/pem.h ../include/openssl/pem2.h

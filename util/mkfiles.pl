@@ -64,6 +64,7 @@ my @dirs = (
 "crypto/whrlpool",
 "crypto/ts",
 "crypto/srp",
+"crypto/kdf",
 "ssl",
 "apps",
 "engines",

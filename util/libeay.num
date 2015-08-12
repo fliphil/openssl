@@ -4414,3 +4414,12 @@ X509_VERIFY_PARAM_add1_host             4771	EXIST::FUNCTION:
 EC_GROUP_get_mont_data                  4772	EXIST::FUNCTION:EC
 i2d_re_X509_tbs                         4773	EXIST::FUNCTION:
 EVP_PKEY_asn1_set_item                  4774	EXIST::FUNCTION:
+kdf_srtp                                4775	EXIST::FUNCTION:
+kdf_tls12_P_hash                        4776	EXIST::FUNCTION:
+kdf_ikev2_rekey                         4777	EXIST::FUNCTION:
+kdf_ikev2_gen                           4778	EXIST::FUNCTION:
+kdf_802_11i                             4779	EXIST::FUNCTION:
+ERR_load_KDF_strings                    4780	EXIST::FUNCTION:
+kdf_snmp                                4781	EXIST::FUNCTION:
+kdf_ikev2_dkm                           4782	EXIST::FUNCTION:
+kdf_ssh                                 4783	EXIST::FUNCTION:

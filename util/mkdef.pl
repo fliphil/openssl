@@ -353,6 +353,7 @@ $crypto.=" crypto/cms/cms.h";
 $crypto.=" crypto/jpake/jpake.h";
 $crypto.=" crypto/modes/modes.h";
 $crypto.=" crypto/srp/srp.h";
+$crypto.=" crypto/kdf/kdf.h";
 
 my $symhacks="crypto/symhacks.h";
 
